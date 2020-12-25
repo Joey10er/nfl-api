@@ -24,6 +24,8 @@ def send_request(query, args=None):
         if response.status_code == 200:
             result = response.content.decode('utf-8')
             result = json.loads(result)
+            formatted = json.dumps(result, indent=2)
+            print(formatted)
             return result
         else:
             print(f'HTTP Request failed with status code {response.status_code}')
@@ -33,18 +35,21 @@ def send_request(query, args=None):
         print('HTTP Request failed')
         return None
 
-result = send_request('nfl/2020-2021-regular/standings.json')
 # result is a dict
 # print(result)
 # print all the team names
-teams = result['teams']
-# print as formatted string
-formatted = json.dumps(result, indent=2)
-print(formatted)
 
-# Traverse result
-for item in teams:
-    team = item['team']
-    name = team['name']
-    city = team['city']
-    print(f'Team: {name} in city {city}')
+# print as formatted string
+
+
+def get_teams():
+    query = 'nfl/2020-2021-regular/standings.json'
+    result = send_request(query)
+    teams = result['teams']
+    # Traverse result
+    for item in teams:
+        team = item['team']
+        name = team['name']
+        city = team['city']
+        print(f'Team: {name} in city {city}')
+get_teams()
