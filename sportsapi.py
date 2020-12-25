@@ -48,4 +48,3 @@ for item in teams:
     name = team['name']
     city = team['city']
     print(f'Team: {name} in city {city}')
-#s
