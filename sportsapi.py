@@ -35,7 +35,7 @@ def send_request(query, args=None):
 
 result = send_request('nfl/2020-2021-regular/standings.json')
 # result is a dict
-print(result)
+# print(result)
 # print all the team names
 teams = result['teams']
 # print as formatted string
