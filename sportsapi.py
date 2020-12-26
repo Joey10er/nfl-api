@@ -35,21 +35,20 @@ def send_request(query, args=None):
         print('HTTP Request failed')
         return None
 
-# result is a dict
-# print(result)
-# print all the team names
-
-# print as formatted string
-
-
 def get_teams():
     query = 'nfl/2020-2021-regular/standings.json'
     result = send_request(query)
     teams = result['teams']
     # Traverse result
     for item in teams:
-        team = item['team']
-        name = team['name']
-        city = team['city']
-        print(f'Team: {name} in city {city}')
+        print_info(item)
+
+
+def print_info(item):
+    team = item['team']
+    name = team['name']
+    city = team['city']
+    print(f'Team: {name} in city {city}')
+
+
 get_teams()
