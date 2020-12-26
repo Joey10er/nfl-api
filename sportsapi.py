@@ -41,14 +41,10 @@ def get_teams():
     teams = result['teams']
     # Traverse result
     for item in teams:
-        print_info(item)
-
-
-def print_info(item):
-    team = item['team']
-    name = team['name']
-    city = team['city']
-    print(f'Team: {name} in city {city}')
+        team = item['team']
+        name = team['name']
+        city = team['city']
+        print(f'Team: {name} in city {city}')
 
 
 get_teams()
