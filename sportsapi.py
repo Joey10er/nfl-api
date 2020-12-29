@@ -34,17 +34,35 @@ def send_request(query, args=None):
     except requests.exceptions.RequestException:
         print('HTTP Request failed')
         return None
-
+team_gamesback = {}
 def get_teams():
     query = 'nfl/2020-2021-regular/standings.json'
     result = send_request(query)
     teams = result['teams']
     # Traverse result
-    for item in teams:
-        team = item['team']
+    for team_info in teams:
+        team = team_info['team']
         name = team['name']
         city = team['city']
-        print(f'Team: {name} in city {city}')
-
-
+        abbreviation = team['abbreviation']
+        overallRank = team_info['overallRank']
+        rank = overallRank['rank']
+        gamesback = overallRank['gamesBack']
+        team_gamesback[abbreviation] = gamesback
+        print(f'Team: {name} in city {city} is ranked {rank} and {gamesback} games back')
+        pass
 get_teams()
+pass
+def get_injuries():
+    # print first name, last name, team, gamesback
+    query = 'nfl/injuries.json'
+    args = {'team': 'NYG'}
+    result = send_request(query, args)
+    for player in result['players']:
+        abbreviation_ = player['currentTeam']['abbreviation']
+        print(f"Player: {player['firstName']} {player['lastName']} playing for {abbreviation_} is {team_gamesback[abbreviation_]} games back")
+    pass
+get_injuries()
+
+
+
